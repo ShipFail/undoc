@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BetterDocs — Turn Dense Vendor Docs into Developer‑Ready Guides</title>
+  <meta name="description" content="Paste any doc URL (AWS, Google Cloud, Azure, Stripe, Twilio) and get a clean, Divio‑structured, Tailwind‑styled guide with versions, votes, and citations." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23111'/><text x='50' y='62' font-size='56' text-anchor='middle' fill='white'>B</text></svg>">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eefdf6', 100: '#d6f7e7', 200: '#aef0d2', 300: '#7fe5bb', 400: '#4cd6a3', 500: '#1fbe89', 600: '#119d73', 700: '#0d7a5a', 800: '#0b6048', 900: '#084f3c'
+            },
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Flowbite -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script defer src="https://unpkg.com/flowbite@2.5.1/dist/flowbite.min.js"></script>
+  <style>
+    body{font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"}
+    .glass{background:linear-gradient(180deg,rgba(255,255,255,.75),rgba(255,255,255,.6));backdrop-filter: blur(8px);}
+    .shadow-soft{box-shadow:0 10px 30px rgba(2,6,23,.08)}
+    .code{font-feature-settings:"calt" 0,"liga" 0}
+  </style>
+</head>
+<body class="bg-gradient-to-b from-white to-slate-50 text-slate-900">
+
+  <!-- Navbar -->
+  <nav class="border-b border-slate-200/70 sticky top-0 z-40 bg-white/90 backdrop-blur">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between py-3">
+        <a href="#" class="flex items-center gap-3">
+          <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-brand-600 text-white font-bold">B</span>
+          <span class="font-extrabold text-lg">BetterDocs</span>
+        </a>
+        <div class="hidden md:flex items-center gap-6 text-sm">
+          <a href="#how" class="hover:text-slate-700">How it works</a>
+          <a href="#examples" class="hover:text-slate-700">Examples</a>
+          <a href="#pricing" class="hover:text-slate-700">Pricing</a>
+          <a href="#faq" class="hover:text-slate-700">FAQ</a>
+          <a href="#cta" class="px-4 py-2 rounded-lg bg-brand-600 text-white hover:bg-brand-700 shadow-soft">Try it</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="relative overflow-hidden">
+    <div class="absolute inset-0 -z-10 bg-[radial-gradient(1200px_600px_at_80%_-10%,rgba(31,190,137,.25),transparent_60%),radial-gradient(900px_400px_at_10%_10%,rgba(76,214,163,.2),transparent_60%)]"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-20 grid lg:grid-cols-2 gap-10 items-center">
+      <div>
+        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">Turn dense vendor docs into <span class="text-brand-700">developer‑ready</span> guides.</h1>
+        <p class="mt-4 text-lg text-slate-600">Paste a URL from Google Cloud, AWS, Azure, Stripe, or Twilio. BetterDocs regenerates it into a beautiful, single‑page guide using the <span class="font-semibold">Divio system</span> — Tutorials, How‑to, Explanation, Reference — plus versions and community scores.</p>
+        <ul class="mt-6 grid sm:grid-cols-2 gap-3 text-sm">
+          <li class="flex items-center gap-2"><span class="i w-2 h-2 rounded-full bg-brand-500"></span> Divio‑structured output</li>
+          <li class="flex items-center gap-2"><span class="i w-2 h-2 rounded-full bg-brand-500"></span> Multi‑LLM & prompt versioning</li>
+          <li class="flex items-center gap-2"><span class="i w-2 h-2 rounded-full bg-brand-500"></span> Citations & freshness badges</li>
+          <li class="flex items-center gap-2"><span class="i w-2 h-2 rounded-full bg-brand-500"></span> Votes surface the best version</li>
+        </ul>
+        <div class="mt-8 bg-white glass p-3 rounded-2xl shadow-soft">
+          <form id="urlForm" class="flex flex-col sm:flex-row gap-3">
+            <input required type="url" id="docUrl" placeholder="https://cloud.google.com/docs/authentication" class="flex-1 rounded-xl border-slate-300 focus:ring-brand-500 focus:border-brand-500 px-4 py-3">
+            <button type="submit" class="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold shadow-soft">Regenerate</button>
+          </form>
+          <p id="demoHint" class="text-xs text-slate-500 mt-2">Demo mode: form is client‑side only. Hook it to your /api/generate endpoint.</p>
+        </div>
+        <div class="mt-4 flex items-center gap-3 text-xs text-slate-500">
+          <span class="inline-flex items-center gap-1"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 6v6l4 2" stroke-width="2"/></svg> ~45s avg render</span>
+          <span>•</span>
+          <span>Respect robots.txt · citations required</span>
+        </div>
+      </div>
+      <div class="relative">
+        <div class="rounded-2xl border border-slate-200 bg-white shadow-soft overflow-hidden">
+          <div class="px-5 py-3 border-b border-slate-200 flex items-center justify-between text-sm">
+            <div class="font-semibold">Output preview</div>
+            <div class="text-slate-500">Divio layout</div>
+          </div>
+          <div class="p-5 grid gap-4">
+            <div class="rounded-xl p-4 bg-slate-50">
+              <div class="text-xs uppercase tracking-wide text-slate-500">Tutorials</div>
+              <div class="mt-2 font-semibold">Local dev with ADC</div>
+              <pre class="code text-xs mt-2">gcloud auth application-default login</pre>
+            </div>
+            <div class="rounded-xl p-4 bg-slate-50">
+              <div class="text-xs uppercase tracking-wide text-slate-500">How‑to</div>
+              <div class="mt-2 font-semibold">Impersonate a service account</div>
+              <pre class="code text-xs mt-2">GOOGLE_IMPERSONATE_SERVICE_ACCOUNT=svc@project.iam.gserviceaccount.com</pre>
+            </div>
+            <div class="rounded-xl p-4 bg-slate-50">
+              <div class="text-xs uppercase tracking-wide text-slate-500">Explanation</div>
+              <div class="mt-2 text-sm">Identity → Credentials → Tokens → IAM.</div>
+            </div>
+            <div class="rounded-xl p-4 bg-slate-50">
+              <div class="text-xs uppercase tracking-wide text-slate-500">Reference</div>
+              <div class="mt-2 text-sm">Token types, env vars, CLI, limits.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Logos / social proof placeholder -->
+  <section class="py-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center text-slate-500 text-sm">Regenerating docs from</div>
+      <div class="mt-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 opacity-70">
+        <div class="h-10 bg-slate-200 rounded"></div>
+        <div class="h-10 bg-slate-200 rounded"></div>
+        <div class="h-10 bg-slate-200 rounded"></div>
+        <div class="h-10 bg-slate-200 rounded"></div>
+        <div class="h-10 bg-slate-200 rounded"></div>
+        <div class="h-10 bg-slate-200 rounded"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section id="how" class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl font-extrabold">How it works</h2>
+        <p class="mt-3 text-slate-600">From URL to readable doc in minutes — with versions, votes, and citations.</p>
+      </div>
+      <div class="mt-10 grid gap-6 md:grid-cols-3">
+        <div class="p-6 rounded-2xl border border-slate-200 shadow-soft">
+          <div class="w-10 h-10 rounded-xl bg-brand-100 text-brand-700 flex items-center justify-center font-bold">1</div>
+          <h3 class="mt-4 font-semibold">Submit a URL</h3>
+          <p class="mt-2 text-sm text-slate-600">We fetch the page, follow key internal links, and extract the core content.</p>
+        </div>
+        <div class="p-6 rounded-2xl border border-slate-200 shadow-soft">
+          <div class="w-10 h-10 rounded-xl bg-brand-100 text-brand-700 flex items-center justify-center font-bold">2</div>
+          <h3 class="mt-4 font-semibold">Regenerate with Divio</h3>
+          <p class="mt-2 text-sm text-slate-600">We synthesize Tutorials, How‑to, Explanation, and Reference with citations and rules of thumb.</p>
+        </div>
+        <div class="p-6 rounded-2xl border border-slate-200 shadow-soft">
+          <div class="w-10 h-10 rounded-xl bg-brand-100 text-brand-700 flex items-center justify-center font-bold">3</div>
+          <h3 class="mt-4 font-semibold">Version & vote</h3>
+          <p class="mt-2 text-sm text-slate-600">Try different prompts/models. New visitors see a random version; the crowd surfaces the best.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Examples -->
+  <section id="examples" class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-10 items-center">
+        <div>
+          <h2 class="text-3xl font-extrabold">Ship better docs, faster.</h2>
+          <p class="mt-3 text-slate-600">Your rewritten page is a single, elegant HTML file. Copy to your wiki, export to PDF, or link publicly. Every load‑bearing statement can be cited back to the source.</p>
+          <ul class="mt-6 space-y-2 text-sm">
+            <li>• Divio layout that teaches, not just lists.</li>
+            <li>• Comparison tables and decision helpers.</li>
+            <li>• Freshness indicators and source timestamps.</li>
+          </ul>
+          <div class="mt-6 flex gap-3">
+            <a href="#cta" class="px-5 py-3 rounded-xl bg-brand-600 text-white font-semibold shadow-soft">Try a URL</a>
+            <a href="#" class="px-5 py-3 rounded-xl border border-slate-300 hover:bg-slate-50">See a sample</a>
+          </div>
+        </div>
+        <div class="rounded-2xl border border-slate-200 bg-white shadow-soft overflow-hidden">
+          <div class="p-6 grid gap-4">
+            <div class="rounded-xl border border-slate-200 p-4">
+              <div class="text-xs uppercase text-slate-500">Decision helper</div>
+              <div class="mt-2 text-sm">API Keys vs OAuth vs Service Accounts</div>
+              <div class="mt-3 grid grid-cols-3 gap-3 text-xs">
+                <div class="bg-slate-50 p-3 rounded">Public APIs<br><span class="text-slate-500">Project identity</span></div>
+                <div class="bg-slate-50 p-3 rounded">User data<br><span class="text-slate-500">Delegated scopes</span></div>
+                <div class="bg-slate-50 p-3 rounded">Server‑to‑server<br><span class="text-slate-500">IAM roles</span></div>
+              </div>
+            </div>
+            <div class="rounded-xl border border-slate-200 p-4">
+              <div class="text-xs uppercase text-slate-500">Common confusions</div>
+              <ul class="mt-2 text-sm list-disc ml-5">
+                <li>“Tokens are not credentials” — tokens are minted from credentials.</li>
+                <li>ADC vs CLI login — ADC is for your code’s auth, not just the CLI.</li>
+                <li>ID vs access tokens — audience‑checked vs API‑scoped.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl font-extrabold">Simple pricing</h2>
+        <p class="mt-3 text-slate-600">Start free. Pay as you regenerate at scale.</p>
+      </div>
+      <div class="mt-10 grid gap-6 md:grid-cols-3">
+        <div class="p-6 rounded-2xl border border-slate-200 shadow-soft">
+          <div class="text-sm font-semibold text-brand-700">Hacker</div>
+          <div class="mt-2 text-3xl font-extrabold">Free</div>
+          <ul class="mt-4 text-sm space-y-2">
+            <li>• 3 regenerations/day</li>
+            <li>• Public gallery</li>
+            <li>• Voting & versions</li>
+          </ul>
+          <a href="#cta" class="mt-6 inline-flex justify-center w-full px-4 py-2 rounded-lg bg-brand-600 text-white font-semibold">Get started</a>
+        </div>
+        <div class="p-6 rounded-2xl border-2 border-brand-500 shadow-soft relative">
+          <span class="absolute -top-3 right-4 px-2 py-1 rounded bg-brand-600 text-white text-xs">Popular</span>
+          <div class="text-sm font-semibold text-brand-700">Pro</div>
+          <div class="mt-2 text-3xl font-extrabold">$19<span class="text-base font-semibold text-slate-500">/mo</span></div>
+          <ul class="mt-4 text-sm space-y-2">
+            <li>• 200 regenerations/mo</li>
+            <li>• Private docs</li>
+            <li>• Export HTML/PDF</li>
+          </ul>
+          <a href="#cta" class="mt-6 inline-flex justify-center w-full px-4 py-2 rounded-lg bg-brand-600 text-white font-semibold">Upgrade</a>
+        </div>
+        <div class="p-6 rounded-2xl border border-slate-200 shadow-soft">
+          <div class="text-sm font-semibold text-brand-700">Team</div>
+          <div class="mt-2 text-3xl font-extrabold">$79<span class="text-base font-semibold text-slate-500">/mo</span></div>
+          <ul class="mt-4 text-sm space-y-2">
+            <li>• 1,000 regenerations/mo</li>
+            <li>• Team votes & roles</li>
+            <li>• API & Webhooks</li>
+          </ul>
+          <a href="#cta" class="mt-6 inline-flex justify-center w-full px-4 py-2 rounded-lg bg-brand-600 text-white font-semibold">Contact sales</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="cta" class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl font-extrabold">Paste a URL. Read a BetterDoc.</h2>
+      <p class="mt-3 text-slate-600">Your first regeneration is free. No sign‑up required.</p>
+      <form id="urlForm2" class="mt-6 max-w-3xl mx-auto flex flex-col sm:flex-row gap-3 glass p-3 rounded-2xl shadow-soft">
+        <input required type="url" placeholder="https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html" class="flex-1 rounded-xl border-slate-300 focus:ring-brand-500 focus:border-brand-500 px-4 py-3">
+        <button class="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold">Regenerate</button>
+      </form>
+      <div class="mt-3 text-xs text-slate-500">By continuing you agree to our summary & citation policy and content guidelines.</div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl font-extrabold">FAQ</h2>
+      </div>
+      <div class="mt-10 grid md:grid-cols-2 gap-6">
+        <div class="p-6 rounded-2xl border border-slate-200 shadow-soft">
+          <h3 class="font-semibold">Is this legal?</h3>
+          <p class="mt-2 text-sm text-slate-600">We summarize and transform content with short quoted snippets and link back prominently. We respect robots.txt and honor takedown requests.</p>
+        </div>
+        <div class="p-6 rounded-2xl border border-slate-2 00 shadow-soft">
+          <h3 class="font-semibold">Will it hallucinate?</h3>
+          <p class="mt-2 text-sm text-slate-600">We require citations for load‑bearing statements and show freshness timestamps. Readers can vote and flag issues.</p>
+        </div>
+        <div class="p-6 rounded-2xl border border-slate-200 shadow-soft">
+          <h3 class="font-semibold">Which docs are supported?</h3>
+          <p class="mt-2 text-sm text-slate-600">Most public technical docs (AWS, Google Cloud, Azure, Stripe, Twilio, etc.). Gated content may require pasting text.</p>
+        </div>
+        <div class="p-6 rounded-2xl border border-slate-200 shadow-soft">
+          <h3 class="font-semibold">How do versions work?</h3>
+          <p class="mt-2 text-sm text-slate-600">We store each run with model & prompt tags. Visitors see a random version; votes rank them; you can pin the best.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 gap-6 items-center">
+        <div>
+          <div class="flex items-center gap-3">
+            <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-brand-600 text-white font-bold">B</span>
+            <div>
+              <div class="font-extrabold">BetterDocs</div>
+              <div class="text-sm text-slate-500">Docs that teach — automatically.</div>
+            </div>
+          </div>
+        </div>
+        <div class="md:text-right text-sm text-slate-500">
+          © <span id="year"></span> BetterDocs. All rights reserved.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    for (const f of [document.getElementById('urlForm'), document.getElementById('urlForm2')]) {
+      if(!f) continue;
+      f.addEventListener('submit', (e)=>{
+        e.preventDefault();
+        const url = f.querySelector('input[type=url]').value.trim();
+        if (!url) return;
+        // Demo: show an alert. Replace with a fetch to your API endpoint.
+        alert(`Submitting to /api/generate?url=${encodeURIComponent(url)}`);
+      });
+    }
+  </script>
+</body>
+</html>

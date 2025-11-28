@@ -66,3 +66,8 @@ MIT License - see [LICENSE](LICENSE) for details.
 ---
 
 Built with ❤️ for developers who value their time
+Undo the docs. Read what matters.
+
+![UnDoc Logo](docs/undoc-logo.png)
+
+>	“Paste link → press UnDoc → stop crying.”
