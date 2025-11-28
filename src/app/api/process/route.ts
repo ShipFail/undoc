@@ -14,31 +14,97 @@ interface ProcessedDoc {
   originalUrl: string;
 }
 
+// Decode HTML entities safely
+function decodeHtmlEntities(text: string): string {
+  const entities: { [key: string]: string } = {
+    "&nbsp;": " ",
+    "&lt;": "<",
+    "&gt;": ">",
+    "&quot;": '"',
+    "&#39;": "'",
+    "&apos;": "'",
+  };
+  
+  let result = text;
+  // Decode &amp; last to avoid double-decoding issues
+  for (const [entity, char] of Object.entries(entities)) {
+    result = result.split(entity).join(char);
+  }
+  // Decode &amp; separately to avoid double-unescaping
+  result = result.split("&amp;").join("&");
+  
+  return result;
+}
+
 // Simple HTML to text parser (no external dependencies)
+// 
+// SECURITY NOTE: This function extracts text content from HTML for display.
+// The output is rendered via React's JSX interpolation (e.g., {text}), which
+// automatically escapes HTML entities. This means even if some HTML remnants 
+// remain, they will be displayed as literal text, not interpreted as HTML.
+// The final escapeHtmlCharacters step provides defense-in-depth.
 function htmlToText(html: string): string {
-  return html
-    // Remove scripts and styles
-    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "")
-    .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, "")
-    // Replace line breaks
+  let text = html;
+  
+  // Repeatedly remove script and style elements until none remain.
+  // This handles nested, malformed, or escaped tags.
+  // Using a loop ensures complete removal even if the first pass leaves fragments.
+  const MAX_ITERATIONS = 100; // Prevent infinite loops on malicious input
+  
+  for (let i = 0; i < MAX_ITERATIONS; i++) {
+    const prevText = text;
+    
+    // Remove script elements (handles various whitespace in closing tags)
+    text = text.replace(/<script\b[\s\S]*?<\/script[\s\S]*?>/gi, "");
+    
+    // Remove style elements
+    text = text.replace(/<style\b[\s\S]*?<\/style[\s\S]*?>/gi, "");
+    
+    // Remove orphaned opening script/style tags (no closing tag found)
+    text = text.replace(/<script\b[^>]*>/gi, "");
+    text = text.replace(/<style\b[^>]*>/gi, "");
+    
+    // Remove orphaned closing script/style tags
+    text = text.replace(/<\/script[\s\S]*?>/gi, "");
+    text = text.replace(/<\/style[\s\S]*?>/gi, "");
+    
+    // If no changes were made, we're done
+    if (text === prevText) break;
+  }
+  
+  // Replace line breaks with newlines
+  text = text
     .replace(/<br\s*\/?>/gi, "\n")
     .replace(/<\/p>/gi, "\n\n")
     .replace(/<\/div>/gi, "\n")
     .replace(/<\/li>/gi, "\n")
-    .replace(/<\/h[1-6]>/gi, "\n\n")
-    // Remove remaining HTML tags
-    .replace(/<[^>]+>/g, "")
-    // Decode common HTML entities
-    .replace(/&nbsp;/g, " ")
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&apos;/g, "'")
-    // Clean up whitespace
+    .replace(/<\/h[1-6]>/gi, "\n\n");
+  
+  // Remove all remaining HTML tags (for text extraction)
+  text = text.replace(/<[^>]*>/g, "");
+  
+  // Decode HTML entities
+  text = decodeHtmlEntities(text);
+  
+  // Defense-in-depth: escape any remaining angle brackets that might look like HTML
+  // This ensures that even if regex-based tag removal missed something,
+  // the output cannot be interpreted as HTML
+  text = escapeHtmlCharacters(text);
+  
+  // Clean up whitespace
+  text = text
     .replace(/\n{3,}/g, "\n\n")
     .trim();
+  
+  return text;
+}
+
+// Escape HTML-significant characters to prevent any possibility of HTML injection
+// even though React already escapes text in JSX interpolation
+function escapeHtmlCharacters(text: string): string {
+  return text
+    .replace(/</g, "‹") // Replace with single angle quotation mark
+    .replace(/>/g, "›"); // This preserves readability while preventing HTML interpretation
 }
 
 // Extract title from HTML
