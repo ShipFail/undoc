@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>BetterDocs — Turn Dense Vendor Docs into Developer‑Ready Guides</title>
-  <meta name="description" content="Paste any doc URL (AWS, Google Cloud, Azure, Stripe, Twilio) and get a clean, Divio‑structured, Tailwind‑styled guide with versions, votes, and citations." />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23111'/><text x='50' y='62' font-size='56' text-anchor='middle' fill='white'>B</text></svg>">
+  <title>UnDoc — Turn Dense Vendor Docs into Developer‑Ready Guides</title>
+  <meta name="description" content="Paste any doc URL (AWS, Google Cloud, Azure, Stripe, Twilio) and get a clean, Divio‑structured, Tailwind‑styled guide with versions, votes, and citations. Powered by UnDoc." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23111'/><text x='50' y='62' font-size='56' text-anchor='middle' fill='white'>U</text></svg>">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -39,8 +39,8 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between py-3">
         <a href="#" class="flex items-center gap-3">
-          <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-brand-600 text-white font-bold">B</span>
-          <span class="font-extrabold text-lg">BetterDocs</span>
+          <img src="undoc-logo.png" alt="UnDoc" class="h-10 w-10 rounded-xl">
+          <span class="font-extrabold text-lg">UnDoc</span>
         </a>
         <div class="hidden md:flex items-center gap-6 text-sm">
           <a href="#how" class="hover:text-slate-700">How it works</a>
@@ -59,7 +59,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-20 grid lg:grid-cols-2 gap-10 items-center">
       <div>
         <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">Turn dense vendor docs into <span class="text-brand-700">developer‑ready</span> guides.</h1>
-        <p class="mt-4 text-lg text-slate-600">Paste a URL from Google Cloud, AWS, Azure, Stripe, or Twilio. BetterDocs regenerates it into a beautiful, single‑page guide using the <span class="font-semibold">Divio system</span> — Tutorials, How‑to, Explanation, Reference — plus versions and community scores.</p>
+        <p class="mt-4 text-lg text-slate-600">Paste a URL from Google Cloud, AWS, Azure, Stripe, or Twilio. UnDoc regenerates it into a beautiful, single‑page guide using the <span class="font-semibold">Divio system</span> — Tutorials, How‑to, Explanation, Reference — plus versions and community scores.</p>
         <ul class="mt-6 grid sm:grid-cols-2 gap-3 text-sm">
           <li class="flex items-center gap-2"><span class="i w-2 h-2 rounded-full bg-brand-500"></span> Divio‑structured output</li>
           <li class="flex items-center gap-2"><span class="i w-2 h-2 rounded-full bg-brand-500"></span> Multi‑LLM & prompt versioning</li>
@@ -240,7 +240,7 @@
   <!-- CTA -->
   <section id="cta" class="py-16">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-3xl font-extrabold">Paste a URL. Read a BetterDoc.</h2>
+      <h2 class="text-3xl font-extrabold">Paste a URL. Read an UnDoc.</h2>
       <p class="mt-3 text-slate-600">Your first regeneration is free. No sign‑up required.</p>
       <form id="urlForm2" class="mt-6 max-w-3xl mx-auto flex flex-col sm:flex-row gap-3 glass p-3 rounded-2xl shadow-soft">
         <input required type="url" placeholder="https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html" class="flex-1 rounded-xl border-slate-300 focus:ring-brand-500 focus:border-brand-500 px-4 py-3">
@@ -283,15 +283,15 @@
       <div class="grid md:grid-cols-2 gap-6 items-center">
         <div>
           <div class="flex items-center gap-3">
-            <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-brand-600 text-white font-bold">B</span>
+            <img src="undoc-logo.png" alt="UnDoc" class="h-10 w-10 rounded-xl">
             <div>
-              <div class="font-extrabold">BetterDocs</div>
+              <div class="font-extrabold">UnDoc</div>
               <div class="text-sm text-slate-500">Docs that teach — automatically.</div>
             </div>
           </div>
         </div>
         <div class="md:text-right text-sm text-slate-500">
-          © <span id="year"></span> BetterDocs. All rights reserved.
+          © <span id="year"></span> UnDoc. All rights reserved.
         </div>
       </div>
     </div>
