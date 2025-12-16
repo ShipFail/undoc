@@ -23,25 +23,23 @@
     // Google Cloud CLI Feature (3rd-party allowed)
     "ghcr.io/dhoeric/features/google-cloud-cli:1.0.1": { "version": "latest" },
 
-    // ImageMagick + friends via apt
-    "ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
-      // comma-separated apt packages
-      "packages": "ffmpeg,imagemagick,libvips,webp"
-    },
-
     "ghcr.io/devcontainers/features/node:1": {
       "version": "lts"
     },
 
-    "./features/npm-packages": {
+    "./features/any-packages": {
       "packages": [
-        "tsx",
-        "firebase-tools",
-        "npm-check-updates",
-        "@google/gemini-cli",
-        "@anthropic-ai/claude-code",
-        "@openai/codex",
-        "@github/copilot"
+        "ffmpeg",
+        "imagemagick",
+        "libvips",
+        "webp",
+        "npm:tsx",
+        "npm:firebase-tools",
+        "npm:npm-check-updates",
+        "npm:@google/gemini-cli",
+        "npm:@anthropic-ai/claude-code",
+        "npm:@openai/codex",
+        "npm:@github/copilot"
       ]
     },
     "./features/gh-auto-auth": {}
