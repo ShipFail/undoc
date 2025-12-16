@@ -1,0 +1,59 @@
+{
+  "$schema": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json",
+
+  "name": "🚢 Ship.Fail // BaaF - Bug-as-a-Feature",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
+
+  "mounts": [
+    // other mounts you might already have...
+
+    // Mount your host ~/.gitconfig into the container home.
+    // For Linux/macOS host:
+    "source=${localEnv:HOME}/.gitconfig,target=/home/vscode/.gitconfig,type=bind,consistency=cached"
+  ],
+  
+  "features": {
+    "ghcr.io/devcontainers/features/sshd:1": { "version": "latest" },
+    "ghcr.io/devcontainers/features/common-utils:2": {},
+    "ghcr.io/devcontainers-community/features/deno:1": { "version": "latest" },   
+    "ghcr.io/devcontainers/features/ruby:1": { "version": "latest" },
+    "ghcr.io/devcontainers/features/java:1": { "version": "17" },
+
+    // Google Cloud CLI Feature (3rd-party allowed)
+    "ghcr.io/dhoeric/features/google-cloud-cli:1.0.1": { "version": "latest" },
+
+    // ImageMagick + friends via apt
+    "ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
+      // comma-separated apt packages
+      "packages": "ffmpeg,imagemagick,libvips,webp"
+    },
+
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts"
+    },
+
+    "./features/npm-packages": {
+      "packages": [
+        "tsx",
+        "firebase-tools",
+        "npm-check-updates",
+        "@google/gemini-cli",
+        "@anthropic-ai/claude-code",
+        "@openai/codex",
+        "@github/copilot"
+      ]
+    }
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "denoland.vscode-deno"
+      ]
+    }
+  },
+
+  "onCreateCommand": "true",
+  // `post` means after mounting `workspace`
+  "postCreateCommand": "true"
+}
