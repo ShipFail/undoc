@@ -4,6 +4,7 @@
   "name": "📜 UnDoc | ShipFail",
   "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
 
+  "initializeCommand": "mkdir -p '${localEnv:HOME}/.claude' '${localEnv:HOME}/.codex' '${localEnv:HOME}/.gemini' && touch '${localEnv:HOME}/.claude.json' '${localEnv:HOME}/.gitconfig'",
   "mounts": [
     "source=${localEnv:HOME}/.claude,target=/home/vscode/.claude,type=bind,consistency=cached",
     "source=${localEnv:HOME}/.claude.json,target=/home/vscode/.claude.json,type=bind,consistency=cached",
