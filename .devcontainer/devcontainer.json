@@ -15,6 +15,7 @@
   "features": {
     "ghcr.io/devcontainers/features/sshd:1": { "version": "latest" },
     "ghcr.io/devcontainers/features/common-utils:2": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {},
     "ghcr.io/devcontainers-community/features/deno:1": { "version": "latest" },   
     "ghcr.io/devcontainers/features/ruby:1": { "version": "latest" },
     "ghcr.io/devcontainers/features/java:1": { "version": "17" },
